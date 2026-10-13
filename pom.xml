@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.iesalixar.daw2.alejandro</groupId>
+  <artifactId>dwese2627-crud-users</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Alejandro - Aplicación Web CRUD de Usuarios</name>
+  <url>https://github.com/Ale07dv</url>
+
+  <dependencies>
+
+    <!-- JUnit para realizar pruebas -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>6.1.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Lombok para simplificar las entidades -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.48</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- API de Servlets compatible con Jetty 11 -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- SLF4J para los loggers -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.20</version>
+    </dependency>
+
+    <!-- Logback para mostrar los logs -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+
+    <!-- Variables de entorno -->
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>dotenv-java</artifactId>
+      <version>3.2.0</version>
+    </dependency>
+
+    <!-- Driver JDBC para MariaDB -->
+    <dependency>
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
+      <version>3.5.10</version>
+    </dependency>
+
+    <!-- API de JSTL para las vistas JSP -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+    <!-- Implementación de JSTL -->
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <finalName>dwese2627-crud-users</finalName>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <!--  Plugin para compilación de código fuente  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>21</source>
+          <!--  La versión de JDK que estamos usando  -->
+          <target>21</target>
+          <!--  La versión de JDK que estamos usando  -->
+        </configuration>
+      </plugin>
+      <!--  Plugin para la generación de javadoc  -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <source>21</source>
+          <!--  La versión de JDK que estamos usando  -->
+          <additionalJOption>-Xdoclint:none</additionalJOption>
+          <!--  Opcional: Ignora los errores de JavaDoc  -->
+          <encoding>UTF-8</encoding>
+          <docencoding>UTF-8</docencoding>
+          <charset>UTF-8</charset>
+          <show>private</show>
+          <!--  Incluye métodos privados en la documentación  -->
+          <noindex>false</noindex>
+          <!--  Genera el índice de todos los elementos  -->
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>javadoc</goal>
+              <!--  El objetivo principal es generar JavaDoc  -->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--  Plugin de Servidor Jetty embebido  -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>11.0.26</version>
+        <!--  Versión compatible con Jakarta EE 9+  -->
+        <configuration>
+          <webApp>
+            <contextPath>/</contextPath>
+          </webApp>
+          <httpConnector>
+            <port>8080</port>
+          </httpConnector>
+          <!--  Configuración para la depuración remota  -->
+          <jvmArgs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005</jvmArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+</build>
+</project>
